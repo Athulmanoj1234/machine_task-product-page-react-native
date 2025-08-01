@@ -12,17 +12,23 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Alert } from 'react-native';
 
 export default function App() {
-  const product = {
-    id: 1,
-    name: "Lays Classic Salted Chips",
-    price: 40,
-    category: "food",
-    imageUrl: "https://i.pinimg.com/736x/d9/df/52/d9df52fc0b122fd6424113f631348c17.jpg"
-  };
+  const [product, setProduct] = useState({
+    "id": 8,
+    "name": "OnePlus 12R Matte Black Case",
+    "price": 250,
+    "category": "phone case",
+    "imageUrl": "https://m.media-amazon.com/images/I/61c+-zyrhkL._UF1000,1000_QL80_.jpg"
+  },);
+
   const [wholeProducts, setWholeProducts] = useState(products);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [toCart, setToCart] = useState(false);
+
+  const handleProductView = (id) => {
+    const productView = wholeProducts?.find(product => product?.id === id);
+    setProduct(productView);
+  }
 
   useEffect(() => {
     const relatedProducts = () => wholeProducts?.filter(eachProduct => {
@@ -63,7 +69,7 @@ export default function App() {
               style={{ width: 300, height: 320, marginRight: 10, marginTop: -20 }}></Image>
           </View>
           <View style={{ paddingLeft: 3, paddingTop: 20, flexDirection: 'column', marginTop: 2 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Cucina French Frie</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 19 }}>{product?.name}</Text>
             <Text>{quantity} Pack</Text>
           </View>
 
@@ -154,7 +160,7 @@ export default function App() {
                     marginTop: 10,
                   }}>{product?.name}</Text>
                   <Text style={{ fontWeight: 'bold', position: 'absolute', top: 200, right: 84 }}>AED {product?.price}</Text>
-                  <TouchableOpacity title="Select Option" style={{ height: 25, backgroundColor: '#5f98f1', width: '130', position: 'absolute', top: 230, borderRadius: 5, color: 'white', }}><Text style={{ color: 'white', fontWeight: 'bold', position: 'relative', left: 22, top: 2 }}>Select Option</Text></TouchableOpacity>
+                  <TouchableOpacity title="Select Option" style={{ height: 25, backgroundColor: '#5f98f1', width: '130', position: 'absolute', top: 230, borderRadius: 5, color: 'white', }}><Text style={{ color: 'white', fontWeight: 'bold', position: 'relative', left: 22, top: 2 }} onPress={() => handleProductView(product?.id)}>Select Option</Text></TouchableOpacity>
                 </View>
               )))}
               {/* backgroundColor: 'white', height: '70%', marginTop: 20, width: '55%', borderRadius: 20, position: 'relative', flexDirection: 'column', alignItems: 'center', elevation: 2 */}
